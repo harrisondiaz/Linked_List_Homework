@@ -98,22 +98,26 @@ function removeElement(element){
     var current = this.head;
     var prev = null;
 
-    // iterate over the list
+
     while (current != null) {
         // comparing element with current
         // element if found then remove the
         // and return true
-        if (current.element === element) {
+        if (current.data === element) {
+            console.log(current.data)
+
             if (prev == null) {
                 this.head = current.next;
             } else {
                 prev.next = current.next;
             }
             this.size--;
+            return current.element;
         }
         prev = current;
         current = current.next;
     }
+    return -1;
 
 }
 push("Daniel")
@@ -128,8 +132,10 @@ starting from the given node
 function printList() {
     var tnode = head;
     var phrase = "";
+    var counter = 0;
     while (tnode != null) {
-        phrase += (`<br><button onclick="deleting(${tnode.data.value})">${tnode.data}</button><br>`);
+        counter++;
+        phrase += (`<br><button class="btn btn-outline-dark border border-white" id="${tnode.data}" onclick="deleting(${tnode.data})">${counter}. ${tnode.data}</button><br>`);
         tnode = tnode.next;
     }
 
@@ -144,7 +150,7 @@ function indexOf(element){
     while (current != null) {
         // compare each element of the list
         // with given element
-        if (current.element == element){
+        if (current.data === element){
             console.log(count)
             return count;
         }else {
@@ -194,8 +200,8 @@ function removeFrom(index){
 
 }*/
 function deleting(idName) {
-    console.log("hi")
-    removeFrom(indexOf(idName));
+    console.log(idName.id)
+    removeFrom(indexOf(idName.id))
     document.getElementById("list").innerText = "";
     printList();
 
