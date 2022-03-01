@@ -94,35 +94,117 @@ function deleteNode(key) {
     // Unlink the node from linked list
     prev.next = temp.next;
 }
+function removeElement(element){
+    var current = this.head;
+    var prev = null;
+
+    // iterate over the list
+    while (current != null) {
+        // comparing element with current
+        // element if found then remove the
+        // and return true
+        if (current.element === element) {
+            if (prev == null) {
+                this.head = current.next;
+            } else {
+                prev.next = current.next;
+            }
+            this.size--;
+        }
+        prev = current;
+        current = current.next;
+    }
+
+}
+push("Daniel")
+push("Andres")
+push("Santiago")
+push("Jhoi")
+push("Luky")
 /*
 * This function prints contents of linked list
 starting from the given node
 */
 function printList() {
     var tnode = head;
+    var phrase = "";
     while (tnode != null) {
-        document.write(`<br><button onclick="deleteNode(tnode.data)">${tnode.data}</button><br>`);
+        phrase += (`<br><button onclick="deleting(${tnode.data.value})">${tnode.data}</button><br>`);
         tnode = tnode.next;
     }
 
-    document.write(`<h5>Añadir:</h5><input id="texting">
-     <button type="button" onclick="pushing()">Enviar</button>
-     <button type="button"  onclick="document.reset(),printList()">Ver lista</button>
-     <button onclick="document.reset(),printList()">Cargar</button>`);
+    document.getElementById("list").innerHTML = phrase;
     console.log(head)
 }
+function indexOf(element){
+    var count = 0;
+    var current = this.head;
 
+    // iterate over the list
+    while (current != null) {
+        // compare each element of the list
+        // with given element
+        if (current.element == element){
+            console.log(count)
+            return count;
+        }else {
+            count++;
+            current = current.next;
+        }
+    }
 
+    // not found
+    return -1;
+}
 
+function removeFrom(index){
+    if (index < 0 || index >= this.size)
+        return console.log("Please Enter a valid index");
+    else {
+        var curr, prev, it = 0;
+        curr = this.head;
+        prev = curr;
+
+        // deleting first element
+        if (index === 0) {
+            this.head = curr.next;
+        } else {
+            // iterate over the list to the
+            // position to removce an element
+            while (it < index) {
+                it++;
+                prev = curr;
+                curr = curr.next;
+            }
+
+            // remove the element
+            prev.next = curr.next;
+        }
+        this.size--;
+
+        // return the remove element
+        return curr.element;
+    }
+}
+/**function deleting(idName) {
+    console.log("hi")
+    removeElement(idName);
+    document.getElementById("list").innerText = "";
+    printList();
+
+}*/
+function deleting(idName) {
+    console.log("hi")
+    removeFrom(indexOf(idName));
+    document.getElementById("list").innerText = "";
+    printList();
+
+}
 function pushing(){
     push(document.getElementById("texting").value);
-    document.getElementById("texting").onreset;
+    document.getElementById("texting").innerText="";
+    document.getElementById("list").innerText = "";
+
 }
 //Problemas al eleminar un elemento de la lista al darle click
-/**push("harrison")
-push("harrison2")
-push("harrison3")
-const aux = head;
-console.log(aux)
-deleteNode("harrison2")
-console.log(head)*/
+window.onload = () => printList();
